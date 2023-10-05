@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Avasana Chatbot</title>
+    <style>
+        /* CSS for the chatbox */
+        #chat-container {
+            width: 800px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .message {
+            padding: 5px;
+            margin: 5px;
+            overflow: hidden; /* Clear floats to ensure messages don't overlap */
+        }
+
+        .user-message {
+            background-color: #4CAF50;
+            color: white;
+            float: right; /* Align user messages to the right */
+            clear: both; /* Ensure each user message starts on a new line */
+        }
+
+        .bot-message {
+            background-color: #f1f1f1;
+            float: left; /* Align bot messages to the left */
+            clear: both; /* Ensure each bot message starts on a new line */
+        }
+
+        #user-input {
+            width: 92%;
+            margin: 28px 0 0 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Avasana Chatbot</h1>
+    <div id="chat-container">
+        <div id="chat-box">
+            <div class="message bot-message">
+                <p>Hello, welcome to Avasana! I am really glad to meet you today. My name is Sophia Bennet. I am an AI-based mental health guide and I specialize in assisting people with various challenges such as managing anxiety and nervousness, overcoming social discomfort, and addressing specific fears as well as career transitions. I am living in New York and was also born and raised here. I hope that together we can navigate the challenges that you are experiencing at the moment.</p>
+            </div>
+        </div>
+        <form id="chat-form" action="/" method="post">
+            <input type="text" id="user-input" name="user_input" placeholder="Enter your text">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const chatForm = document.getElementById('chat-form');
+
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userInput = document.getElementById('user-input').value;
+
+            // Display user message on the right
+            const userMessage = document.createElement('div');
+            userMessage.className = 'message user-message';
+            userMessage.innerHTML = `<p>User: ${userInput}</p>`;
+            chatBox.appendChild(userMessage);
+
+            document.getElementById('user-input').value = '';
+
+            const response = await fetch('/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `user_input=${encodeURIComponent(userInput)}`,
+            });
+
+            const responseData = await response.json();
+
+            // Display chatbot response on the left
+            const botMessage = document.createElement('div');
+            botMessage.className = 'message bot-message';
+            botMessage.innerHTML = `<p>Chatbot: ${responseData.response}</p>`;
+            chatBox.appendChild(botMessage);
+        });
+    </script>
+</body>
+</html>

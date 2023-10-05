@@ -1,0 +1,81 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>chatbot</title>
+
+</head>
+<body>
+<form class="wt-form" method="post" enctype="multipart/form-data">{% csrf_token %}
+<section id="section_1">
+     <div style="background-image: linear-gradient(140deg, #EADEDB 0%, #91cdf2 50%, #caf595 75%);">
+         <a href="/clear_chat" style="color:black; position: absolute; right: 20px; font-size:20px; margin:3px">Clear Chat</a>
+         <h2 style="text-align:center;">Chatbot</h2>
+            <hr>
+     </div>
+
+    <div class="container" style="width:80%; border-radius: 10px; border-width:1px; border-style:solid; border-color:black;">
+
+        <div style="height:700px; overflow:auto; " id="scrollableDiv">
+
+            <div style="width:80%; margin-left: 0px; margin-top:10px; padding: 10px;  background:#caf595; font-size: 20px; border-radius: 5px;">
+                <p>Hello, welcome to Avasana! I am really glad to meet you today. My name is Sophia Bennet. I am an AI-based mental health guide and I specialize in assisting people with various challenges such as managing anxiety and nervousness, overcoming social discomfort, and addressing specific fears as well as career transitions. I am living in New York and was also born and raised here. I hope that together we can navigate the challenges that you are experiencing at the moment.</p>
+            </div>
+                {% for x in chats %}
+                    {% if x.question %}
+                        <div style="width:50%; position:relative; margin-left:49%; margin-top:10px; margin-bottom:20px; font-size: 18px; padding: 10px; background:#91cdf2; border-radius: 5px;">
+                            <h5><b>You</b></h5>
+                            {{x.question.capitalize|safe}}
+                        </div>
+                    {% endif %}
+            <div style="width:80%; margin-left:0px; margin-bottom:20px; padding: 10px;  background:#caf595; font-size: 18px; border-radius: 5px;">
+                <h5><b>Sophia Bennet</b></h5>
+                {{x.answer|safe}}
+<!--                <div>-->
+<!--                    <i class="fa fa-exclamation-circle" style="font-size:15px;color:blue;"></i>-->
+<!--                    {{x.source}}-->
+<!--                </div>-->
+            </div>
+              {% endfor %}
+        </div>
+
+    </div>
+
+
+
+    <div class="container" style="margin-top:20px; margin-bottom:0px; width:80% ; border-radius:10px; border: 1px solid black; ">
+
+            <div class="row" style="">
+                <div class="col-md-10">
+                    <input id="in_box" class="form-control" name="user_input" placeholder="type here......" style="border-color:white;font-size: 18px;" required>
+                </div>
+                <div class="col-md-2">
+                    <button onclick="validate" style='margin:0px;padding:0px; border-color:white; width:100%;height:100%;'><i class='fa fa-send' style='color:green'></i></button>
+                </div>
+            </div>
+    </div>
+    </section>
+        </form>
+</body>
+
+<script>
+    // Function to scroll the div to the bottom
+    function scrollToBottom() {
+        var scrollableDiv = document.getElementById("scrollableDiv");
+        scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+    }
+
+    // Call the function when the page loads
+    window.onload = scrollToBottom;
+</script>
+
+</html>
+

@@ -1,0 +1,18 @@
+
+using python3.10
+Firstly insert open ai key in myapp/views.py file.
+install requirement file.
+using pip3 install -r requirement.txt
+
+run the server using this command:-
+    python3 manage.py runserver
+
+
+hit this url only once for creating index:-
+    https://127.0.0.1:8000/create_data
+
+you will be redirect to https://127.0.0.1:8000 url after index creating.
+
+Now you can test the chatbot on this link https://127.0.0.1:8000.
+
+when you want to clear the chat just click on clear chat button.
